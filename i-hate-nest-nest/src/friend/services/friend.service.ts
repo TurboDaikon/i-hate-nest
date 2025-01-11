@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/dal/types/User.type';
 import { UserService } from 'src/user/services/user.service';
 
 @Injectable()
