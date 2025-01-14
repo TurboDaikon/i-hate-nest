@@ -1,15 +1,14 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { UserService } from '../services/user.service';
-import { User } from 'src/dal/types/User.type';
-import { ApiTags } from '@nestjs/swagger';
+import { UserDocument } from 'src/dal/mongodb/schemas/user.schema';
+import { CreateUserDto } from '../dtos/CreateUser.dto';
 
 @Controller('user')
-@ApiTags('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('/:id')
-  getUserById(@Param('id') id: string): User {
-    return this.userService.getUserById(id);
+  @Post('create')
+  async createUser(@Body() userDto: CreateUserDto): Promise<UserDocument> {
+    return this.userService.addUser(userDto);
   }
 }
